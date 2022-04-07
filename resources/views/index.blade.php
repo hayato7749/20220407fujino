@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>COACHTECH</title>
+  <link rel="stylesheet" href="resources/css/reset.css">
 </head>
 <style>
   body{
@@ -79,7 +80,7 @@
 <body>
   <div class="main">
     <h1>Todo List</h1>
-    <form action="/todo/create" method="post">
+    <form action="/todo/create" method="post" class="create">
       @csrf
       <input type="text" name="content" class=create-input>
       <button class=create-button>追加</button>
@@ -96,16 +97,19 @@
         <td class=date>
           {{$item->created_at}}
         </td>
+        <form action="{{route('update',['id' =>$item->id])}}" method="post">
+          @csrf
         <td>
           <input type="text" name="content" value="{{$item->content}}" class=content-input>
         </td>
         <td class=update-td>
-          <button class=update-button formaction="{{route('update',['id' =>$item->id])}}">更新</button>
+          <button class=update-button>更新</button>
         </td>
+        </form>
         <td class=delete-td>
           <form method="POST" action="{{route('delete',['id'=>$item->id])}}">
             @csrf
-            <button type="submit" class=delete-button>削除</button>
+            <button class=delete-button>削除</button>
           </form>
         </td>
       </tr>

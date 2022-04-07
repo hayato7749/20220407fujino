@@ -15,7 +15,11 @@ class ApplicationController extends Controller
     }
     public function create(Request $request)
     {
-            $param= [
+        $validate_rule = [
+            'content' => 'required|max:20',
+        ];
+        $this->validate($request, $validate_rule);
+        $param= [
             'content' => $request->content,
             'created_at' => now(),
             'updated_at' => now(),
@@ -25,15 +29,21 @@ class ApplicationController extends Controller
     }
     public function update(Request $request)
     {
-        $items = Application::find($id);
-        $items->content=$request->input('content');
-        $items->save();
+        $param= [
+            'id' => $request->id,
+            'content' => $request->content,
+            'created_at' => now(),
+        ];
+        DB::update('update applications set content =:content, created_at=:created_at where id=:id', $param);
         return redirect('/');
     }
     public function delete(Request $request)
     {
-        $param = Application::find($id);
-        $param->delete();
+        $param= [
+            'id' => $request->id
+        ];
+        $param = Application::find($param);
+        $param->each->delete();
         return redirect('/');
     }
 }

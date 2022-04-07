@@ -20,4 +20,4 @@ Route::post('/todo/create', [ApplicationController::class, 'create']);
 Route::get('/todo/update', [ApplicationController::class, 'index'])->name('update');
 Route::post('/todo/update', [ApplicationController::class, 'update'])->name('update');
 Route::get('/todo/delete', [ApplicationController::class, 'index'])->name('delete');
-Route::post('/todo/delete/{id}', [ApplicationController::class, 'delete'])->name('delete');
+Route::post('/todo/delete', [ApplicationController::class, 'delete'])->name('delete');
